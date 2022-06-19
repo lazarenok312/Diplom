@@ -1,0 +1,45 @@
+{% load journal_tag %}
+<form class="example" action="{% url 'search' %}" method="get">
+    <input type="text" placeholder="Поиск журнала..." name="q">
+{#    <button type="submit"><i class="fa fa-search"></i></button>#}
+    <button class="btn btn-outline-success1 my-2 my-sm-0" type="submit"><i class="fa fa-search"></i> Поиск</button>
+</form>
+<form action="{% url 'filter' %}" method="get">
+    <div class="left-side my-2">
+        <h3 class="sear-head editContent">Категории</h3>
+        <ul class="w3layouts-box-list">
+            {% for category in view.get_category %}
+                <li class="editContent">
+                    <input type="checkbox" class="checked" name="category" value="{{ category.id }}">
+                    <span class="span editContent">{{ category.name }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="left-side my-4">
+        <h3 class="sear-head editContent">Разделы</h3>
+        <ul class="w3layouts-box-list">
+            {% for genre in view.get_genre %}
+                <li class="editContent">
+                    <input type="checkbox" class="checked" name="genre" value="{{ genre.id }}">
+                    <span class="span editContent">{{ genre.name }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="left-side">
+        <h3 class="sear-head editContent">Год</h3>
+        <ul class="w3layouts-box-list">
+            {% for journal in view.get_years %}
+                <li class="editContent">
+                    <input type="checkbox" class="checked" name="publication_date"
+                           value="{{ journal.publication_date }}">
+                    <span class="span editContent">{{ journal.publication_date }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <button class="btn btn-outline-success1 my-2 my-sm-0" type="submit"><i class="fa fa-search"></i> Поиск по категориям</button>
+</form><br>
+{% get_last_journal %}
+

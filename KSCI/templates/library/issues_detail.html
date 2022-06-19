@@ -1,0 +1,102 @@
+{% extends 'library/base.html' %}
+{% block title %} Выпуск: {{ issues.name }} {% endblock title %}
+{% block container %}
+{% endblock container %}
+
+{% block journal %}
+    <div class="row">
+    </div>
+    <div>
+        <div>
+            <div class="journal-container" xmlns="http://www.w3.org/1999/html">
+                {% if user.is_authenticated %}
+                    <a href="{{ issues.get_update_url }}">
+                        <button type="button" class="btn btn-edit"><i class="fa fa-pencil"></i> Изменить данный выпуск
+                        </button>
+                    </a>
+                    <a href="{{ issues.get_delete_url }}">
+                        <button type="button" class="btn btn-delete"><i class="fa fa-bitbucket"></i> Удалить данный
+                            выпуск
+                        </button>
+                    </a>
+{#                                         <a href="{{ items.get_delete_url }}">#}
+{#                        <button type="button" class="btn btn-add"><i class="fa fa-file-text-o"></i> Разметить метаданные статьи из файла XML в данный выпуск#}
+{#                        </button>#}
+
+                                             <label for="file-upload" class="custom-file-upload">
+
+{#                                                 <i class="fa fa-cloud-upload"></i> Разметить метаданные статьи из файла#}
+{#                                                 XML в данный выпуск#}
+                                             <input style="border: 1px solid #4cae50;
+    display: inline-block;
+    padding: 7px 810px;
+    cursor: pointer;
+    color: #4cae50;
+    background-color: rgba(255, 255, 255, 0.52);
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 2rem;" type="file"/>
+                                             </label>
+
+{#                    </a>#}
+
+                {% else %}
+                {% endif %}
+            </div>
+
+            <br>
+            <div class="left-ads-display col-lg-8">
+                <div class="row">
+                    <div class="desc1-left col-md-3">
+                    </div>
+                    <div class="desc1-right col-md-6 pl-lg-4">
+                        <h1 class="editContent" style="outline: none; cursor: inherit;">
+                            {{ issues.name }}
+                        </h1>
+                        <!--<h5 class="editContent">{{ journal.name }}</h5>-->
+                        <ul>
+                            <li style="list-style: none"><i class="fa fa-book" aria-hidden="true"></i><span><b> Относится к журналу: </b><a
+                                    href="{% url 'journal_detail' issues.journal %}">{{ issues.journal }}1</a>
+                        </span></li>
+                            <li style="list-style: none"><span><i class="fa fa-calendar" aria-hidden="true"></i><b> Год публикации выпуска: </b>{{ issues.publication_date }}</span>
+                            </li>
+                            <div class="layer">
+                                <li style="list-style: none"><span><b>Описание:</b> {{ issues.description }}</span>
+                                </li>
+                            </div>
+                            <li style="list-style: none">
+                                {% if issues.filedir %}
+                                    <span><b><i class="fa fa-file-archive-o" aria-hidden="true"></i> Файл: </b><a
+                                            href="{{ issues.files.url }}">{{ issues.filedir }}</a></span>
+                                {% else %}
+                                    <span><b><i class="fa fa-times"
+                                                aria-hidden="true"></i> Файл: </b><a> Файл отсутствует</a></span>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row sub-para-w3layouts mt-5">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="left-ads-display">
+        <table>
+            <tr>
+                <th>Название статьи</th>
+                <th>Год написания статьи</th>
+            </tr>
+            {% for items in object.items_set.all %}
+                <tr>
+                    <td><a href="{% url 'items_detail' items.name %}">{{ items.name }}1</a></td>
+                    <td>{{ items.publication_date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock journal %}

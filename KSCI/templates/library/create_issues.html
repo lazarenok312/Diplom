@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %} Добавление выпуска {% endblock title %}
+
+{% block content %}
+
+    <h1>Форма добавление выпуска</h1><br>
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label><h3>Название выпуска</h3></label>
+            {{ form.name }}<br>
+            <label><h3>Добавить в журнал</h3></label>
+            {{ form.journal }}<br>
+            <label><h3>Описание выпуска</h3></label>
+            {{ form.description }}<br>
+            <div class="row">
+                <div class="column"><h5>Файл</h5>{{ form.files }}</div>
+{#                <div class="row">#}
+                    <div class="column2"><h5>Год публикации выпуска</h5>{{ form.publication_date }}</div>
+{#                </div>#}
+            </div>
+            <br>
+            <span>{{ error }}</span><br><br>
+            <button class="registerbtn" type="submit">Добавить выпуск</button>
+        </form>
+    </div>
+{% endblock %}

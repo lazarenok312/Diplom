@@ -1,0 +1,109 @@
+{% load journal_tag %}
+<header class="header">
+    <div class="container-fluid ">
+        <nav class="py-4">
+            <div id="logo" class="px-lg-5">
+                <h1><a href="{% url "home" %}" class="editContent"
+                       style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(255, 255, 255); font-size: 30px; background-color: rgba(0, 0, 0, 0); font-family: Source Sans Pro;, sans-serif;">Цифровой репозиторий научных журналов</a>
+                </h1>
+            </div>
+        </nav>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light canvas" >
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="active" href="{% url "home" %}"><i class="fa fa-fw fa-home"></i> Главная</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                <li>
+                    <a class="nav-link">Категории <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                    <ul>
+                        {% get_categories as categories %}
+                        {% for category in categories %}
+                            <li><a href="#">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="nav-item active">
+                <li>
+                    <a class="nav-link">Разделы <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                    <ul>
+                        {% get_genre as genres %}
+                        {% for genre in genres %}
+                            <li><a href="#">{{ genre.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                {% if user.is_staff %}
+                    <a href="#"><i class="fa fa-fw fa-user"></i> {{ user.first_name }}</a>
+                    <pre> </pre>
+                    <div class="dropdown">
+                        <button class="dropbtn">Панель администратора</button>
+                        <div class="dropdown-content">
+                            <a class="active" href="{% url 'create_journal' %}"><i class="fa fa-fw fa-font "></i>Добавить
+                                журнал в ручную</a>
+                            <a class="active" href="{% url 'create_issues' %}"><i class="fa fa-fw fa-file-text "></i>Добавить
+                                выпуск в ручную</a>
+                            <a class="active" href="{% url 'create_items' %}"><i class="fa fa-fw fa-file-o  "></i>Добавить
+                                статью в ручную</a>
+                            <a class="active" href="#"><i class="fa fa-fw fa-file-text-o "></i>Добавить XML файл</a>
+                            <a class="active" href="{% url 'create_user' %}"><i class="fa fa-fw fa-user-plus "></i>Создать
+                                нового редактора </a>
+                            <a class="active" href="{% url "home" %}"><i class="fa fa-fw fa-pencil"></i> Редактировать
+                                пользователя</a>
+                            <a class="active" href="{% url "home" %}"><i class="fa fa-fw  fa-file"></i> Добавить новую
+                                категорию</a>
+                            <a class="active" href="{% url "home" %}"><i class="fa fa-fw  fa-file"></i> Добавить новый
+                                Раздел</a>
+                            <a class="btn1 btn-outline-success" href="{% url 'account_logout' %}"
+                               style="color: rgb(255,0,0); font-weight: 700; text-transform: uppercase;">
+                                Выход
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    {% if user.is_authenticated %}
+                        <a href="#"><i class="fa fa-fw fa-user"></i> {{ user.first_name }}</a>
+                        <pre> </pre>
+                        <div class="dropdown">
+                            <button class="dropbtn1">Панель ответственного секретаря</button>
+                            <div class="dropdown-content1">
+                                <a class="active" href="{% url 'create_journal' %}"><i class="fa fa-fw fa-font "></i>Добавить
+                                журнал в ручную</a>
+{#                            <a class="active" href="{% url 'create_journal' %}"><i class="fa fa-fw fa-file-text "></i>Добавить#}
+{#                                выпуск в ручную</a>#}
+{#                            <a class="active" href="{% url 'create_journal' %}"><i class="fa fa-fw fa-file-o  "></i>Добавить#}
+{#                                статью в ручную</a>#}
+{#                                <a class="active" href="#"><i class="fa fa-fw fa-user-plus "></i>Добавить XML файл</a>#}
+                                <a class="active" href="{% url "home" %}"><i class="fa fa-fw  fa-file"></i> Добавить
+                                    новую категорию</a>
+                                <a class="active" href="{% url "home" %}"><i class="fa fa-fw  fa-file"></i> Добавить
+                                    новый раздел</a>
+                                <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'account_logout' %}"
+                                   style="color: rgb(253,160,1); font-weight: 700; text-transform: uppercase;">
+                                    Выход
+                                </a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'account_login' %}"
+                           style="color: rgb(253,160,1); font-weight: 700; text-transform: uppercase;">
+                            Авторизоваться
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </form>
+        </div>
+    </nav>
+</header>
+<div class="banner-info">
+    <h3 class="mb-4 editContent">{{ journal.name }}{{ issues.name }}{{ items.name }}</h3>
+    <div class="ban-buttons">
+    </div>
+</div>

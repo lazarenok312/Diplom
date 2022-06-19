@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %} Добавление журнала {% endblock title %}
+
+{% block content %}
+
+    <h1>Форма добавление записи</h1><br>
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label><h3>Название журнала</h3></label>
+            {{ form.name }}<br>
+            <label><h3>Категория</h3></label>
+            {{ form.category }}<br>
+            <label><h3>Раздел</h3></label>
+            {{ form.genres }}<br>
+            <label><h3>Описание журнала</h3></label>
+            {{ form.description }}<br>
+            <div class="row">
+                <div class="column"><h5>Обложка журнала</h5>{{ form.image }}</div>
+                <div class="column"><h5>Файл</h5>{{ form.files }}</div>
+                <div class="row">
+                    <div class="column1"><h5>Год публикации журнала</h5>{{ form.publication_date }}</div>
+                    <div class="column1"><h5>Страна публикации</h5>{{ form.country }}</div>
+                </div>
+            </div>
+            <br>
+            <label><h3>Редакционная коллегия</h3></label>
+            {{ form.editors }}<br>
+            <label><h3>Черновик</h3></label> {{ form.draft }}<br>
+            <span>{{ error }}</span><br><br>
+            <button class="registerbtn" type="submit">Добавить</button>
+        </form>
+    </div>
+{% endblock %}

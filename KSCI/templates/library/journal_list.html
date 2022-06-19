@@ -1,0 +1,61 @@
+{% extends 'library/base.html' %}
+{% block title %} Научно-периодические издания КР {% endblock title %}
+{% load i18n %}
+{% block header %} bg1 {% endblock header %}
+
+{% block journal %}
+    <div class="row">
+        {% block sidebar %}
+            <div class="side-bar col-lg-3">
+        {% endblock sidebar %}
+        {% include 'include/sidebar.html' %}
+        </div>
+        <div class="left-ads-display col-lg-9">
+            <div class="row">
+                {% for journal in journal_list %}
+                    <div class="col-md-4 product-men">
+                    Журнал с {{ journal.issues_set.count }} выпусками
+                        <div class="product-shoe-info editContent text-center mt-lg-4">
+                            <div class="men-thumb-item">
+                                <img src="{{ journal.image.url }}" class="img-fluid1" alt="">
+                            </div>
+                            <div class="item-info-product">
+                                <h4 class="">
+                                    <a href="{{ journal.get_absolute_url }}" class="editContent1">
+                                        {{ journal.name }}
+{#                                            {{ journal.issues_set.count }}#}
+                                    </a>
+                                </h4>
+                                <div class="journal">
+                                    <div>
+{#                                        <a href="{{ journal.get_absolute_url }}">#}
+                                            <a href="{{ journal.get_absolute_url }}" class="notification">
+                                            <button class="btn btn-outline-detail" type="submit"><i class="fa fa-share"></i> Подробнее о журнале</button>
+                                            </a>
+                                        {% if user.is_staff %}
+                                            <a href="{{ journal.get_update_url }}">
+                                                <button class="btn btn-outline-edit" type="submit"><i class="fa fa-pencil"></i> Изменить журнал</button>
+                                            </a>
+                                        {% else %}
+                                            {% if user.is_authenticated %}
+                                                <a href="{{ journal.get_update_url }}">
+                                                <button class="btn btn-outline-edit" type="submit"><i class="fa fa-pencil"></i> Изменить журнал</button>
+                                                </a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="grid-img-right mt-4 text-right bg bg1">
+            {% include 'include/pagination.html' %}
+        </div>
+    </div>
+{% endblock journal %}
+{% block footer %}
+    {% include 'include/footer.html' %}
+{% endblock %}

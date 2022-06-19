@@ -1,0 +1,14 @@
+<div class="deal-leftmk left-side">
+    <h3 class="sear-head editContent">Последние добавленные журналы</h3>
+    {% for journal in last_journal %}
+        <div class="special-sec1 row mt-3 editContent">
+            <div class="img-deals col-md-4">
+                <img src="{{ journal.image.url }}" class="img-fluid" alt="">
+            </div>
+            <div class="img-deal1 col-md-4">
+                <h3 class="editContent">{{ journal.name }}</h3>
+                <a href="{{ journal.get_absolute_url }}" class="editContent"></a>
+            </div>
+        </div>
+    {% endfor %}
+</div>

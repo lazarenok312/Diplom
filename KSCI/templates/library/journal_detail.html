@@ -1,0 +1,112 @@
+{% extends 'library/base.html' %}
+{% block title %} Журнал: {{ journal.name }} {% endblock title %}
+{% block container %}
+{% endblock container %}
+
+{% block journal %}
+    <div class="row">
+    </div>
+    <div>
+        <div class="journal-container" xmlns="http://www.w3.org/1999/html">
+            {% if user.is_authenticated %}
+                <a href="{{ journal.get_update_url }}">
+                    <button type="button" class="btn btn-edit"><i class="fa fa-pencil"></i> Изменить данный журнал
+                    </button>
+                </a>
+                <a href="{{ journal.get_delete_url }}">
+                    <button type="button" class="btn btn-delete"><i class="fa fa-bitbucket"></i> Удалить данный журнал
+                    </button>
+                </a>
+            {% else %}
+            {% endif %}
+        </div>
+
+        <div class="left-ads-display col-lg-8">
+            <div class="row">
+                <div class="desc1-left col-md-6">
+                    <img src="{{ journal.image.url }}" class="img-journal-detail">
+                </div>
+                <div class="desc1-right col-md-6 pl-lg-4">
+                    <ul>
+                        <li style="list-style: none"><span><b><i class="fa fa-calendar" aria-hidden="true"></i> Год выпуска: </b>{{ journal.publication_date }}</span>
+                        </li>
+                        <li style="list-style: none"><span><b><i class="fa fa-eercast"
+                                                                 aria-hidden="true"></i> Страна:</b>{{ journal.country }}</span>
+                        </li>
+                        <div class="layer">
+                            <li style="list-style: none"><span><b>Описание журнала:</b> {{ journal.description }}</span>
+                            </li>
+                        </div>
+                        <li style="list-style: none">
+                        <span><b><i class="fa fa-users" aria-hidden="true"></i> Редакционная коллегия:</b>
+                            {% for editor in journal.editors.all %}
+                                <a href="{% url 'editor_detail' editor.name %}">
+                                    {{ editor.surname }} {{ editor.name }} |
+                                </a>
+                            {% endfor %}
+                            </span></li>
+                        <li style="list-style: none">
+                        <span><b><i class="fa fa-list" aria-hidden="true"></i> Находится в разделе: </b>
+                            {% for genre in journal.genres.all %}
+                                {{ genre.name }}  </span>
+                            {% endfor %}
+                        </li>
+                        <li style="list-style: none">
+                     <span><b><i class="fa fa-outdent" aria-hidden="true"></i> Относится к категории: </b>
+                         {% for category in journal.category.all %}
+                             {{ category.name }}  </span>
+                         {% endfor %}
+                        </li>
+                        <li style="list-style: none">
+                            {% if journal.filedir %}
+                                <span><b><i class="fa fa-file-archive-o" aria-hidden="true"></i> Файл: </b><a
+                                        href="{{ journal.files.url }}">{{ journal.filedir }}</a></span>
+                            {% else %}
+                                <span><b><i class="fa fa-times"
+                                            aria-hidden="true"></i> Файл: </b><a> Файл отсутствует</a></span>
+                            {% endif %}
+
+                        </li>
+                        <div class="share-desc">
+                            <div class="clearfix"></div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <br>
+
+        </div>
+    </div>
+    <div class="left-ads-display">
+        <table>
+        <th></th>
+            <th>Список выпусков в журнале</th>
+        <th></th>
+        <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        </tr>
+            <tr>
+                <th>Название выпуска</th>
+                <th>Год написания выпуска</th>
+                <th>Количество статей в выпуске</th>
+            </tr>
+            {% for issues in object.issues_set.all %}
+                <tr>
+                    <td><a href="{% url 'issues_detail' issues.name %}"> {{ issues.name }}</a></td>
+                    <td> {{ issues.publication_date }} год</td>
+                    {% if issues.items_set.count == 0 %}
+                    <td> В данном выпуске нет научных статей</td>
+                        {% else %}
+                        <td> {{ issues.items_set.count }} статьи</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock journal %}
+{% block footer %}
+    {% include 'include/footer.html' %}
+{% endblock %}

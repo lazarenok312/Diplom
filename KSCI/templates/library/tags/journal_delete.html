@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Удаление журнала{% endblock %}
+{% block content %}
+    <div class="container">
+    <h1>Вы действительно хотите удалить журнал "{{ journal.name }}" ?</h1>
+    <p>Данное действие нельзя будет отменить</p>
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-success" type="submit">Удалить журнал</button>
+    </form>
+    </div>
+{% endblock %}

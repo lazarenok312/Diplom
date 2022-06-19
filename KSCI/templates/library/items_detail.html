@@ -1,0 +1,75 @@
+{% extends 'library/base.html' %}
+{% block title %} Статья: {{ items.name }} {% endblock title %}
+{% block container %}
+{% endblock container %}
+
+{% block journal %}
+    <div class="row">
+    </div>
+    <div>
+        <div>
+            <div class="journal-container" xmlns="http://www.w3.org/1999/html">
+                {% if user.is_authenticated %}
+                    <a href="{{ items.get_update_url }}">
+                        <button type="button" class="btn btn-edit"><i class="fa fa-pencil"></i> Изменить данную статью
+                        </button>
+                    </a>
+                    <a href="{{ items.get_delete_url }}">
+                        <button type="button" class="btn btn-delete"><i class="fa fa-bitbucket"></i> Удалить данную
+                            статью
+                        </button>
+                    </a>
+                {% else %}
+                {% endif %}
+            </div>
+
+            <br>
+            <div class="left-ads-display col-lg-8">
+                <div class="row">
+                    <div class="desc1-left col-md-6">
+                        <img src="{{ items.image.url }}" class="img-journal-detail">
+                    </div>
+                    <div class="desc1-right col-md-6 pl-lg-4">
+                        <ul>
+                            <li style="list-style: none"><span><b><i class="fa fa-calendar" aria-hidden="true"></i> Год написания статьи: </b>{{ items.publication_date }}</span></li>
+                            <li style="list-style: none"><span><b><i class="fa fa-eercast"
+                                                                 aria-hidden="true"></i> Страна:</b>{{ items.country }}</span>
+                            </li>
+                            <div class="layer">
+                                <li style="list-style: none"><span><b>Описание статьи:</b> {{ items.description }}</span>
+                                </li>
+                            </div>
+                            <li style="list-style: none">
+                        <span><b><i class="fa fa-users" aria-hidden="true"></i> Редакционная коллегия: </b>
+                            {% for editor in items.editors.all %}
+                                <a href="{% url 'editor_detail' editor.name %}">
+                                    {{ editor.surname }} {{ editor.name }} |
+                                </a>
+                            {% endfor %}
+                            </span></li>
+                            <li style="list-style: none">
+                        <span><b><i class="fa fa-outdent" aria-hidden="true"></i> Относится к выпуску: </b>
+                            <a href="{% url 'issues_detail' items.issues %}">{{ items.issues }}</a>
+                        </span>
+                            </li>
+                            {% if items.filedir %}
+                                <span><b><i class="fa fa-file-archive-o" aria-hidden="true"></i> Файл: </b><a href="{{ items.files.url }}">{{ items.filedir }}</a></span>
+                            {% else %}
+                                <span><b><i class="fa fa-times"
+                                            aria-hidden="true"></i> Файл: </b><a> Файл отсутствует</a></span>
+                            {% endif %}
+                            </li>
+
+                            <div class="share-desc">
+                                <div class="clearfix"></div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock journal %}
+{% block footer %}
+    {% include 'include/footer.html' %}
+{% endblock %}

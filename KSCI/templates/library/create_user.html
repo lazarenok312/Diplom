@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Создание нового ответственного секретаря{% endblock %}
+{% block content %}
+    <div class="container">
+    <h1>Создание нового ответственного секретаря</h1>
+    <p>Введите все данные для регистрации нового пользователя:</p>
+    <form action="." method="post">
+        {{ user_form.as_p }}
+        {% csrf_token %}
+        <p><input class="registerbtn" type="submit" value="Создать "></p>
+    </form>
+    </div>
+{% endblock %}

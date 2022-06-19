@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %} Изменение выпуска {% endblock title %}
+
+{% block content %}
+    <div class="col-75">
+     <h1>Форма изменение выпуска</h1><br>
+        <div class="container">
+            <form method="post" enctype="multipart/form-data">
+                 {% csrf_token %}
+                <div class="row">
+                    <div class="col-50">
+                        <label><i></i> <h3>Название выпуска</h3></label>
+                        {{ form.name }}
+                                <b>Описание выпуска:</b>
+                        <div class="layer1">
+                            {{ form.description }}
+                                              </div><br>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="state">Журнал</label>
+                                {{ form.journal }}
+                            </div>
+                            <div class="col-25">
+                                <label for="zip">Год публикации</label>
+                                {{ form.publication_date }}
+                                <div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-50">
+                    <div class="row">
+                        <div class="col-50">
+                            <label >Файл</label>
+                            {{ form.files }}
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <button class="registerbtn" type="submit">Внести изменения в выпуск</button>
+        </form>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'library/base.html' %}
+{% block title %} Информация о {{ scientificeditors.name }} {% endblock title %}
+
+{% block container %}
+    <div class="container1 py-md-3" xmlns="http://www.w3.org/1999/html">
+        <h3 class="mb-4 editContent">{{ scientificeditors.surname }} {{ scientificeditors.name }} {{ scientificeditors.patronymic }} </h3>
+        <div class="ban-buttons">
+        </div>
+    </div>
+{% endblock container %}
+
+
+{% block journal %}
+    <div class="left-ads-display col-lg-8">
+        <div class="row">
+            <div class="desc1-left col-md-3">
+                <img src="{{ scientificeditors.image.url }}" class="EditorImage" >
+            </div>
+                            <div class="desc1-right col-md-6 pl-lg-4">
+                                <li style="list-style: none"><span><b>Имя: </b>{{ scientificeditors.name }}</span></li>
+                                <li style="list-style: none"><span><b>Фамилия: </b>{{ scientificeditors.surname }}</span></li>
+                                <li style="list-style: none"><span><b>Номер телефона:</b> {{ scientificeditors.phone_number }}</span></li>
+                                <li style="list-style: none"><span><b>Email:</b> {{ scientificeditors.email }}</span></li>
+                                <li style="list-style: none"><span><b>Журналы:</b></span></li>
+                                    {% for journal in scientificeditors.journal_editors.all %}
+                                        <a href="{% url 'journal_detail' journal.name %}"><li>{{ journal.name }}</li></a>
+                                    {% endfor %}
+                            </div>
+
+            </div>
+         <div class="left-ads-display col-lg-8">
+                                <h3 class="row" style="outline: none; cursor: inherit;">Статистика</h3>
+                            </div>
+    </div>
+
+{% endblock journal %}
+
+{#            <div class="share-desc"><div class="clearfix"></div></div>#}

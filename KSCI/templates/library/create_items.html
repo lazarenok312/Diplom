@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %} Добавление статьи {% endblock title %}
+
+{% block content %}
+
+    <h1>Форма добавление статьи</h1><br>
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label><h3>Название статьи</h3></label>
+            {{ form.name }}<br>
+            <label><h3>Выпуск</h3></label>
+            {{ form.issues }}<br>
+            <label><h3>Описание статьи</h3></label>
+            {{ form.description }}<br>
+            <div class="row">
+                <div class="column"><h5>Обложка статьи</h5>{{ form.image }}</div>
+                <div class="column"><h5>Файл</h5>{{ form.files }}</div>
+                <div class="row">
+                    <div class="column1"><h5>Год публикации статьи</h5>{{ form.publication_date }}</div>
+                    <div class="column1"><h5>Страна публикации</h5>{{ form.country }}</div>
+                </div>
+            </div>
+            <br>
+            <label><h3>Редакционная коллегия</h3></label>
+            {{ form.editors }}<br>
+            <span>{{ error }}</span><br><br>
+            <button class="registerbtn" type="submit">Создать статью</button>
+        </form>
+    </div>
+{% endblock %}

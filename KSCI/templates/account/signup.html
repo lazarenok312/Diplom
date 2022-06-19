@@ -1,0 +1,51 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+    {#    <h1>{% trans "Sign Up" %}</h1>#}
+
+    {#    <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}#}
+    {#    </p>#}
+
+    {#    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">#}
+    {#        {% csrf_token %}#}
+    {#        {{ form.as_p }}#}
+    {#        {% if redirect_field_value %}#}
+    {#            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>#}
+    {#        {% endif %}#}
+    {#    </form>#}
+
+    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+        <div class="container">
+            <h1>Регистрация</h1>
+            <p>Заполните форму для регистрации нового аккаунта</p>
+            <hr>
+            {% csrf_token %}
+            {{ form.as_p }}
+{#            {% if redirect_field_value %}#}
+{#                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>#}
+{#            {% endif %}#}
+{#            <label for="email"><b>Имя пользователя</b></label>#}
+{#            <input type="text" placeholder="Введите имя пользователя" name="email" required>#}
+{##}
+{#            <label for="email"><b>E-mail адрес </b></label>#}
+{#            <input type="text" placeholder="Введите Email адрес" name="email" required>#}
+{##}
+{#            <label for="psw"><b>Пароль</b></label>#}
+{#            <input type="password" placeholder="Введите пароль" name="psw" required>#}
+{##}
+{#            <label for="psw-repeat"><b>Повторите пароль</b></label>#}
+{#            <input type="password" placeholder="Введите пароль еще раз" name="psw-repeat" required>#}
+{#            <hr>#}
+
+            <button type="submit" class="registerbtn">{% trans "Регистрация" %} &raquo;</button>
+        </div>
+
+        <div class="container signin">
+            <p>Уже имеется аккаунт?? <a href="{{ login_url }}">Войдите</a>.</p>
+        </div>
+    </form>
+{% endblock %}
